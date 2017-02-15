@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <el-row>
+    <el-row :gutter="20">
       <el-col :span="6">
         <el-menu mode="vertical" default-active="1" class="el-menu-vertical-demo">
           <el-menu-item-group title="Group One">
-            <el-menu-item index="1"><i class="el-icon-message"></i>Navigator One</el-menu-item>
-            <el-menu-item index="2"><i class="el-icon-message"></i>Navigator Two</el-menu-item>
+            <el-menu-item index="1"><i class="el-icon-document"></i>全部报名</el-menu-item>
+            <el-menu-item index="2"><i class="el-icon-message"></i>概览</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="Group Two">
             <el-menu-item index="3"><i class="el-icon-message"></i>Navigator Three</el-menu-item>

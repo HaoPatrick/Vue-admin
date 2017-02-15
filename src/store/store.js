@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import axios from 'axios'
 Vue.use(Vuex)
 
 const state = {
   login: false,
-  showLoginModal: false
+  showLoginModal: false,
+  allUserData: []
 }
 
 const mutations = {
@@ -20,6 +21,17 @@ const mutations = {
   },
   hideLoginModal (state) {
     state.showLoginModal = false
+  },
+  getUserData (state) {
+    axios.get('http://api.haoxiangpeng.me:8088/api/detail', {
+      params: {
+        cookie: '65gv1zvcSHlc8iNu',
+        exclude: 1
+      }
+    }).then(response => {
+      console.log(response)
+      state.allUserData = response.data
+    })
   }
 }
 
