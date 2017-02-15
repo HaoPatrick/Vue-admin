@@ -42,7 +42,8 @@ const mutations = {
 
 const getters = {
   loggedIn: state => state.login,
-  loginModal: state => state.showLoginModal
+  loginModal: state => state.showLoginModal,
+  allUsers: state => state.allUserData
 }
 
 export default new Vuex.Store({
