@@ -104,7 +104,7 @@ export default {
     let self = this
     if (this.getToken === '') {
       this.$message.error('对不起我不知道你是谁，我也不想和你说话')
-      // this.$router.push('/login')
+      this.$router.push('/login')
     } else if (self.allUsers.length > 0) {
       return
     } else {
