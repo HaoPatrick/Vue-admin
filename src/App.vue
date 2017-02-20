@@ -4,7 +4,7 @@
       <el-col :span="4">
         <el-menu mode="vertical" default-active="1" class="el-menu-vertical-demo">
           <el-menu-item-group title="Group One">
-            <el-menu-item index="1"><span @click="toPersons"><i class="el-icon-document"></i>全部报名</span></el-menu-item>
+            <el-menu-item index="1"><span @click="toPersons"><i class="el-icon-document"></i>每个人都在这里</span></el-menu-item>
             <el-menu-item index="2"><i class="el-icon-message"></i>概览</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="Group Two">

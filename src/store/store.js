@@ -7,8 +7,9 @@ const state = {
   login: false,
   showLoginModal: false,
   allUserData: [],
-  token: '',
-  authURL: 'https://joinus.zjuqsc.com/api/auth'
+  token: '0a6cbb6ad91ffd6efe4163ef70a58c3b6da11de4e57ef96288021d34c1410938',
+  authURL: 'https://joinus.zjuqsc.com/api/auth',
+  detailURL: 'https://joinus.zjuqsc.com/api/detail'
 }
 
 const mutations = {
@@ -35,6 +36,9 @@ const mutations = {
       state.allUserData = response.data
     })
   },
+  setUserData (state, data) {
+    state.allUserData = data
+  },
   login (state, info) {
     axios.post(state.authURL, info).then(response => {
       state.token = response.data.message
@@ -54,7 +58,9 @@ const getters = {
   loggedIn: state => state.login,
   loginModal: state => state.showLoginModal,
   allUsers: state => state.allUserData,
-  authURL: state => state.authURL
+  authURL: state => state.authURL,
+  getToken: state => state.token,
+  detailURL: state => state.detailURL
 }
 
 export default new Vuex.Store({
