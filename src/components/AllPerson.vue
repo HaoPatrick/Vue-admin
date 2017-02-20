@@ -1,9 +1,10 @@
 <template>
-  <el-col :span="19" style="margin-left: 20px">
+  <el-col :span="19" style="margin-left: 20px; padding-bottom: 6rem;">
     <h1 @click="getUserData">{{ msg }}</h1>
-    <el-row :gutter="10" style="overflow: auto; height: 100%">
+    <el-row :gutter="10" style="overflow: auto; height: 100%;">
       <el-col :xs="12" :sm="8" :md="6" v-for="person in allUsers">
         <el-card style="margin-bottom: 0.8rem;">
+          <img width="100%" v-on:error="handleErrorPhoto($event)" :src="'https://photo.haoxp.xyz:8197/' + person.fields.student_id + '.jpg'">
           <div>姓名：{{person.fields.name}}</div>
           <div>学号：{{person.fields.student_id}}</div>
           <div>专业：{{person.fields.major}}</div>
@@ -59,7 +60,11 @@ export default {
     ...mapMutations([
       'getUserData',
       'setUserData'
-    ])
+    ]),
+    handleErrorPhoto: function (e) {
+      let element = e.currentTarget
+      element.src = 'https://photo.haoxp.xyz:8197/error.jpg'
+    }
   }
 }
 </script>
