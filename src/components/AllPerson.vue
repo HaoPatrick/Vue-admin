@@ -18,7 +18,9 @@
           <div><span class="title-caption">移动设备：</span>{{person.fields.phone_number}}</div>
         </el-card>
       </el-col>
-      <el-table v-loading.body="loading" fit stripe v-if="!imageOn" :data="allUsers">
+      <el-table  highlight-current-row 
+        fit v-if="!imageOn" :data="allUsers"
+        @current-change="handleChange">
         <el-table-column sortable prop="fields.name" label="TA的名字">
         </el-table-column>
         <el-table-column sortable prop="fields.major" label="TA的专业"></el-table-column>
@@ -28,9 +30,28 @@
         <el-table-column sortable :filters="departFilter" :filter-method="filterDepart" prop="fields.inclination_two" label="还想去"></el-table-column>
         <el-table-column sortable :formatter="splitPhone" prop="fields.phone_number" label="移动设备"></el-table-column>
         <el-table-column sortable prop="fields.gender" label="性别"></el-table-column>
-        
       </el-table>
     </el-row>
+    <el-dialog title="详细的信息" v-model="dialogPerson">
+      <div v-if="selectedPerson">
+        <p>大家好，我叫{{selectedPerson.fields.name}}, 性别{{selectedPerson.fields.gender}}, 手机号是{{selectedPerson.fields.phone_number}}，
+          现在在{{selectedPerson.fields.major}}读{{selectedPerson.fields.grade}}。 
+          填写报名表用了{{selectedPerson.fields.time_spend | getTime}} 我的邮箱是 {{selectedPerson.fields.mail_address}}
+          我的Box作品：{{selectedPerson.fields.share_work | filterPhoto}}
+        </p>
+        <p>
+          <el-tag type="primary">{{selectedPerson.fields.inclination_one}}</el-tag>
+          <el-tag type="primary">{{selectedPerson.fields.inclination_two}}</el-tag>
+          <p>{{selectedPerson.fields.user_agent}}</p>          
+        </p>
+        <p>自我介绍:</p>
+        <p>{{selectedPerson.fields.self_intro}}</p>
+        <p>第一个问题</p>
+        <p>{{selectedPerson.fields.question_one}}</p>
+        <p>第二个问题</p>
+        <p>{{selectedPerson.fields.question_two}}</p>
+      </div>
+    </el-dialog>
   </el-col>
 </template>
 
@@ -44,12 +65,20 @@ export default {
       'allUsers',
       'getToken',
       'detailURL'
-    ]),
-    loading: function () {
-      return this.allUsers === ''
-    }
+    ])
   },
   filters: {
+    getTime: function (value) {
+      let timeSpend = Math.floor(parseInt(value) / 1000)
+      return Math.floor(timeSpend / 60) + 'min ' + timeSpend % 60 + 's'
+    },
+    filterPhoto: function (value) {
+      if (value === '') {
+        return '没有啊'
+      } else {
+        return value
+      }
+    }
   },
   data () {
     return {
@@ -65,7 +94,10 @@ export default {
         {text: '水朝夕工作室', value: '水朝夕工作室'},
         {text: '产品运营部门', value: '产品运营部门'},
         {text: '摄影部', value: '摄影部'}
-      ]
+      ],
+      dialogPerson: false,
+      selectedPerson: '',
+      loading: false
     }
   },
   created: function () {
@@ -76,6 +108,7 @@ export default {
     } else if (self.allUsers.length > 0) {
       return
     } else {
+      self.loading = true
       axios.get(this.detailURL, {
         params: {
           cookie: self.getToken,
@@ -85,6 +118,7 @@ export default {
         response => {
           console.log(response.data)
           self.setUserData(response.data)
+          self.loading = false
         }
       )
     }
@@ -105,6 +139,28 @@ export default {
     },
     filterDepart: function (value, row) {
       return row.fields.inclination_one === value
+    },
+    showDetail: function () {
+      this.dialogPerson = !this.dialogPerson
+    },
+    handleChange: function (val) {
+      let self = this
+      if (this.getToken === '') {
+        this.$message.error('对不起我不知道你是谁，我也不想和你说话')
+        // this.$router.push('/login')
+      } else {
+        axios.get(this.detailURL, {
+          params: {
+            cookie: self.getToken,
+            student_id: val.fields.student_id
+          }
+        }).then(
+          response => {
+            self.selectedPerson = response.data[0]
+            self.dialogPerson = true
+          }
+        )
+      }
     }
   }
 }
