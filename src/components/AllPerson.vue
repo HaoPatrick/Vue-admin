@@ -1,19 +1,35 @@
 <template>
   <el-col :span="19" style="margin-left: 20px; padding-bottom: 6rem;">
-    <h1 @click="getUserData">{{ msg }}</h1>
+    <div style="font-size: 2rem;margin-bottom: 1.5rem;">{{ msg }}<el-switch
+  v-model="imageOn"
+  on-text="图"
+  off-text="表">
+</el-switch></div>
     <el-row :gutter="10" style="overflow: auto; height: 100%;">
-      <el-col :xs="12" :sm="8" :md="6" v-for="person in allUsers">
+      <el-col v-if="imageOn" :xs="12" :sm="8" :md="8" :lg="6" v-for="person in allUsers">
         <el-card style="margin-bottom: 0.8rem;">
           <img width="100%" v-on:error="handleErrorPhoto($event)" :src="'https://photo.haoxp.xyz:8197/' + person.fields.student_id + '.jpg'">
-          <div>姓名：{{person.fields.name}}</div>
-          <div>学号：{{person.fields.student_id}}</div>
-          <div>专业：{{person.fields.major}}</div>
-          <div>第一志愿：{{person.fields.inclination_one}}</div>
-          <div>第二志愿：{{person.fields.inclination_two}}</div>
-          <div>性别：{{person.fields.gender}}</div>
-          <div>电话号码：{{person.fields.phone_number}}</div>
+          <div><span class="title-caption">名字是：</span>{{person.fields.name}}</div>
+          <div><span class="title-caption">代号：</span>{{person.fields.student_id}}</div>
+          <div><span class="title-caption">学：</span>{{person.fields.major}}</div>
+          <div><span class="title-caption">最想去：</span>{{person.fields.inclination_one}}</div>
+          <div><span class="title-caption">也想去：</span>{{person.fields.inclination_two}}</div>
+          <div><span class="title-caption">是：</span>{{person.fields.gender}}</div>
+          <div><span class="title-caption">移动设备：</span>{{person.fields.phone_number}}</div>
         </el-card>
       </el-col>
+      <el-table v-loading.body="loading" fit stripe v-if="!imageOn" :data="allUsers">
+        <el-table-column sortable prop="fields.name" label="TA的名字">
+        </el-table-column>
+        <el-table-column sortable prop="fields.major" label="TA的专业"></el-table-column>
+        <el-table-column sortable
+           prop="fields.inclination_one" :filters="departFilter" :filter-method="filterDepart"
+           label="最想去"></el-table-column>
+        <el-table-column sortable :filters="departFilter" :filter-method="filterDepart" prop="fields.inclination_two" label="还想去"></el-table-column>
+        <el-table-column sortable :formatter="splitPhone" prop="fields.phone_number" label="移动设备"></el-table-column>
+        <el-table-column sortable prop="fields.gender" label="性别"></el-table-column>
+        
+      </el-table>
     </el-row>
   </el-col>
 </template>
@@ -28,11 +44,28 @@ export default {
       'allUsers',
       'getToken',
       'detailURL'
-    ])
+    ]),
+    loading: function () {
+      return this.allUsers === ''
+    }
+  },
+  filters: {
   },
   data () {
     return {
-      msg: '你想要的，我都有'
+      msg: '你想要的，我都有',
+      imageOn: false,
+      departFilter: [
+        {text: '推广与策划中心', value: '推广与策划中心'},
+        {text: '技术研发中心', value: '技术研发中心'},
+        {text: '视频团队', value: '视频团队'},
+        {text: '人力资源部门', value: '人力资源部门'},
+        {text: '设计与视觉中心', value: '设计与视觉中心'},
+        {text: '新闻与资讯中心', value: '新闻与资讯中心'},
+        {text: '水朝夕工作室', value: '水朝夕工作室'},
+        {text: '产品运营部门', value: '产品运营部门'},
+        {text: '摄影部', value: '摄影部'}
+      ]
     }
   },
   created: function () {
@@ -64,6 +97,14 @@ export default {
     handleErrorPhoto: function (e) {
       let element = e.currentTarget
       element.src = 'https://photo.haoxp.xyz:8197/error.jpg'
+    },
+    splitPhone: function (row, column) {
+      return row.fields.phone_number.slice(0, 3) + '-' +
+        row.fields.phone_number.slice(3, 7) + '-' +
+        row.fields.phone_number.slice(7, 11)
+    },
+    filterDepart: function (value, row) {
+      return row.fields.inclination_one === value
     }
   }
 }
@@ -71,5 +112,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.title-caption{
+  color: #95a5a6;
+  font-size: 0.8rem;
+}
 </style>
