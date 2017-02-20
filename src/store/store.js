@@ -7,9 +7,10 @@ const state = {
   login: false,
   showLoginModal: false,
   allUserData: [],
-  token: '',
+  token: '9bbbb7da69304df243aaca82d581b8070dc924004a5bf3f59c868454ec4c470f',
   authURL: 'https://joinus.zjuqsc.com/api/auth',
-  detailURL: 'https://joinus.zjuqsc.com/api/detail'
+  detailURL: 'https://joinus.zjuqsc.com/api/detail',
+  manageURL: 'https://joinus.zjuqsc.com/api/manage'
 }
 
 const mutations = {
@@ -60,7 +61,8 @@ const getters = {
   allUsers: state => state.allUserData,
   authURL: state => state.authURL,
   getToken: state => state.token,
-  detailURL: state => state.detailURL
+  detailURL: state => state.detailURL,
+  manageURL: state => state.manageURL
 }
 
 export default new Vuex.Store({

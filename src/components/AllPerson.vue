@@ -42,6 +42,10 @@
         <p>
           <el-tag type="primary">{{selectedPerson.fields.inclination_one}}</el-tag>
           <el-tag type="primary">{{selectedPerson.fields.inclination_two}}</el-tag>
+
+          <el-tag type="danger"><i @click="addStar" style="color: #e74c3c" class="el-icon-star-on">
+              {{selectedPerson.fields.star_amount}}
+            </i></el-tag>
           <p>{{selectedPerson.fields.user_agent}}</p>          
         </p>
         <p>自我介绍:</p>
@@ -64,7 +68,8 @@ export default {
     ...mapGetters([
       'allUsers',
       'getToken',
-      'detailURL'
+      'detailURL',
+      'manageURL'
     ])
   },
   filters: {
@@ -161,6 +166,21 @@ export default {
           }
         )
       }
+    },
+    addStar: function () {
+      console.log('asdfasdf')
+      let self = this
+      let form = new FormData()
+      form.append('cookie', self.getToken)
+      form.append('star', '1')
+      form.append('student_id', self.selectedPerson.fields.student_id)
+      axios.post(this.manageURL, form).then(
+        response => {
+          if (response.data.message === 'OK') {
+            self.selectedPerson.fields.star_amount += 1
+          }
+        }
+      )
     }
   }
 }
