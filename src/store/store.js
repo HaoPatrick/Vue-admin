@@ -6,7 +6,9 @@ Vue.use(Vuex)
 const state = {
   login: false,
   showLoginModal: false,
-  allUserData: []
+  allUserData: [],
+  token: '',
+  authURL: 'https://joinus.zjuqsc.com/api/auth'
 }
 
 const mutations = {
@@ -23,7 +25,7 @@ const mutations = {
     state.showLoginModal = false
   },
   getUserData (state) {
-    axios.get('http://api.haoxiangpeng.me:8088/api/detail', {
+    axios.get('https://joinus.zjuqsc.com/api/detail', {
       params: {
         cookie: '65gv1zvcSHlc8iNu',
         exclude: 1
@@ -32,6 +34,14 @@ const mutations = {
       console.log(response)
       state.allUserData = response.data
     })
+  },
+  login (state, info) {
+    axios.post(state.authURL, info).then(response => {
+      state.token = response.data.message
+    })
+  },
+  setToken (state, token) {
+    state.token = token
   }
 }
 
@@ -43,7 +53,8 @@ const mutations = {
 const getters = {
   loggedIn: state => state.login,
   loginModal: state => state.showLoginModal,
-  allUsers: state => state.allUserData
+  allUsers: state => state.allUserData,
+  authURL: state => state.authURL
 }
 
 export default new Vuex.Store({
