@@ -10,7 +10,11 @@
         <el-table-column sortable prop="fields.inc_one" label="最想去"></el-table-column>
         <el-table-column sortable prop="fields.inc_two" label="还想去"></el-table-column>
         <el-table-column sortable prop="fields.phone_number" label="移动设备"></el-table-column>
-        <el-table-column sortable prop="fields.gender" label="性别"></el-table-column>
+        <el-table-column sortable label="恢复">
+          <template scope="scope">
+            <el-button @click="handleRecover(scope.$index, scope.row)" size="small">恢复他</el-button>
+          </template>
+        </el-table-column>
       </el-table>
  </el-col>
 </template>
@@ -25,13 +29,13 @@ export default {
       'deleteURL',
       'getToken',
       'recycleURL',
+      'allUsers',
       'deletedPersons'
     ])
   },
   created: function () {
     let self = this
     let form = new FormData()
-    if (self.deletedPersons !== []) return
     form.append('cookie', self.getToken)
     axios.get(self.recycleURL, form).then(
       response => {
@@ -46,8 +50,28 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setDeleted'
-    ])
+      'setDeleted',
+      'setUserData'
+    ]),
+    handleRecover: function (index, row) {
+      let self = this
+      console.log(index)
+      console.log(row)
+      let form = new FormData()
+      form.append('cookie', self.getToken)
+      form.append('student_id', row.fields.student_id)
+      form.append('recover', '1')
+      axios.post(self.deleteURL, form).then(
+        response => {
+          console.log(response.data)
+          if (response.data.message === 'OK') {
+            let newUser = self.allUsers
+            newUser.push(row)
+            self.setUserData(newUser)
+          }
+        }
+      )
+    }
   }
 }
 </script>

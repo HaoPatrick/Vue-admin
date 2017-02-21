@@ -4,7 +4,9 @@
   v-model="imageOn"
   on-text="图"
   off-text="表">
-</el-switch></div>
+</el-switch>
+    <el-button @click="loadData" size="mini" type="text">再看一眼</el-button>
+    </div>
     <el-row :gutter="10" style="overflow: auto; height: 100%;">
       <el-col v-if="imageOn" :xs="12" :sm="8" :md="8" :lg="6" v-for="person in allUsers">
         <el-card style="margin-bottom: 0.8rem;">
@@ -116,6 +118,16 @@ export default {
       return
     } else {
       self.loading = true
+      self.loadData()
+    }
+  },
+  methods: {
+    ...mapMutations([
+      'getUserData',
+      'setUserData'
+    ]),
+    loadData: function () {
+      let self = this
       axios.get(this.detailURL, {
         params: {
           cookie: self.getToken,
@@ -124,17 +136,11 @@ export default {
       }).then(
         response => {
           console.log(response.data)
-          self.setUserData(response.data)
+          self.setUserData(response.data.reverse())
           self.loading = false
         }
       )
-    }
-  },
-  methods: {
-    ...mapMutations([
-      'getUserData',
-      'setUserData'
-    ]),
+    },
     deleteHim: function () {
       let self = this
       let form = new FormData()
