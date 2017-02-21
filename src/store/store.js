@@ -54,6 +54,7 @@ const mutations = {
   },
   setDeleted (state, data) {
     state.deletedPersons = data
+    console.log(data)
   }
 }
 
