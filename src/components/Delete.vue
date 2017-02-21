@@ -35,16 +35,19 @@ export default {
   },
   created: function () {
     let self = this
+    console.log(self.getToken === '')
     if (self.getToken === '') {
       self.$router.push('/login')
+    } else {
+      let form = new FormData()
+      form.append('cookie', self.getToken)
+      axios.get(self.recycleURL, form).then(
+        response => {
+          console.log(response.data)
+          self.setDeleted(response.data.person)
+        }
+      )
     }
-    let form = new FormData()
-    form.append('cookie', self.getToken)
-    axios.get(self.recycleURL, form).then(
-      response => {
-        self.setDeleted(response.data.person)
-      }
-    )
   },
   data () {
     return {
