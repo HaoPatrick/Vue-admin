@@ -46,6 +46,7 @@
           <el-tag type="danger"><i @click="addStar" style="color: #e74c3c" class="el-icon-star-on">
               {{selectedPerson.fields.star_amount}}
             </i></el-tag>
+            <el-button type="danger" @click="deleteHim">我不想要他了</el-button>
           <p>{{selectedPerson.fields.user_agent}}</p>          
         </p>
         <p>自我介绍:</p>
@@ -69,7 +70,8 @@ export default {
       'allUsers',
       'getToken',
       'detailURL',
-      'manageURL'
+      'manageURL',
+      'deleteURL'
     ])
   },
   filters: {
@@ -133,6 +135,33 @@ export default {
       'getUserData',
       'setUserData'
     ]),
+    deleteHim: function () {
+      let self = this
+      let form = new FormData()
+      form.append('cookie', this.getToken)
+      form.append('student_id', this.selectedPerson.fields.student_id)
+      form.append('recover', '0')
+      axios.post('https://joinus.zjuqsc.com/api/delete', form).then(
+        response => {
+          console.log(response.data)
+          if (response.data.message === 'OK') {
+            let newPerson = self.allUsers.map(
+              eachPerson => {
+                if (eachPerson === self.selectedPerson) {
+                  return null
+                } else {
+                  return eachPerson
+                }
+              }
+            )
+            this.setUserData(newPerson)
+            this.allUsers = newPerson
+            self.selectedPerson = ''
+            self.dialogPerson = false
+          }
+        }
+      )
+    },
     handleErrorPhoto: function (e) {
       let element = e.currentTarget
       element.src = 'https://photo.haoxp.xyz:8197/error.jpg'
