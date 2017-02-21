@@ -36,21 +36,29 @@
     </el-row>
     <el-dialog title="详细的信息" v-model="dialogPerson">
       <div v-if="selectedPerson">
-        <p>大家好，我叫{{selectedPerson.fields.name}}, 性别{{selectedPerson.fields.gender}}, 手机号是{{selectedPerson.fields.phone_number}}，
-          现在在{{selectedPerson.fields.major}}读{{selectedPerson.fields.grade}}。 
-          填写报名表用了{{selectedPerson.fields.time_spend | getTime}} 我的邮箱是 {{selectedPerson.fields.mail_address}}
-          我的Box作品：{{selectedPerson.fields.share_work | filterPhoto}}
-        </p>
-        <p>
-          <el-tag type="primary">{{selectedPerson.fields.inclination_one}}</el-tag>
-          <el-tag type="primary">{{selectedPerson.fields.inclination_two}}</el-tag>
-
-          <el-tag type="danger"><i @click="addStar" style="color: #e74c3c" class="el-icon-star-on">
-              我喜欢 {{selectedPerson.fields.star_amount}}
-            </i></el-tag>
-            <el-button size="small" type="danger" @click="deleteHim">不想要他了</el-button>
-          <p>{{selectedPerson.fields.user_agent}}</p>          
-        </p>
+        <el-row>
+          <el-col :span="19">
+            <p>大家好，我叫{{selectedPerson.fields.name}}, 性别{{selectedPerson.fields.gender}}, 手机号是{{selectedPerson.fields.phone_number}}，
+              现在在{{selectedPerson.fields.major}}读{{selectedPerson.fields.grade}}。 
+              填写报名表用了{{selectedPerson.fields.time_spend | getTime}} 我的邮箱是 {{selectedPerson.fields.mail_address}}
+              我的Box作品：{{selectedPerson.fields.share_work | filterPhoto}}
+            </p>
+            <p>
+              <el-tag type="primary">{{selectedPerson.fields.inclination_one}}</el-tag>
+              <el-tag type="primary">{{selectedPerson.fields.inclination_two}}</el-tag>
+            
+              <el-tag type="danger"><i @click="addStar" style="color: #e74c3c" class="el-icon-star-on">
+                  我喜欢 {{selectedPerson.fields.star_amount}}
+                </i></el-tag>
+                <el-button size="small" type="danger" @click="deleteHim">不想要他了</el-button>
+              <p>{{selectedPerson.fields.user_agent}}</p>          
+            </p>
+          </el-col>
+          <el-col :span="5">
+            <img width="100%" v-on:error="handleErrorPhoto($event)"
+             :src="'https://photo.haoxp.xyz:8197/' + selectedPerson.fields.student_id + '.jpg'">
+          </el-col>
+        </el-row>
         <p style="font-weight: bold">自我介绍:</p>
         <p>{{selectedPerson.fields.self_intro}}</p>
         <p style="font-weight: bold">{{selectedPerson.fields.inclination_one}}</p>
