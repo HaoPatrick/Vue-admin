@@ -46,9 +46,9 @@
           <el-tag type="primary">{{selectedPerson.fields.inclination_two}}</el-tag>
 
           <el-tag type="danger"><i @click="addStar" style="color: #e74c3c" class="el-icon-star-on">
-              {{selectedPerson.fields.star_amount}}
+              我喜欢 {{selectedPerson.fields.star_amount}}
             </i></el-tag>
-            <el-button type="danger" @click="deleteHim">我不想要他了</el-button>
+            <el-button size="small" type="danger" @click="deleteHim">不想要他了</el-button>
           <p>{{selectedPerson.fields.user_agent}}</p>          
         </p>
         <p>自我介绍:</p>
@@ -153,10 +153,12 @@ export default {
         response => {
           console.log(response.data)
           if (response.data.message === 'OK') {
-            let deleted = self.deletedPersons
-            deleted.push(self.selectedPerson)
-            this.setDeleted(deleted)
-            self.selectedPerson = ''
+            let newUser = self.allUsers.filter(
+              eachPerson => {
+                return eachPerson.pk !== self.selectedPerson.pk
+              }
+            )
+            self.setUserData(newUser)
             self.dialogPerson = false
           }
         }

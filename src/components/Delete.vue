@@ -55,7 +55,6 @@ export default {
     ]),
     handleRecover: function (index, row) {
       let self = this
-      console.log(index)
       console.log(row)
       let form = new FormData()
       form.append('cookie', self.getToken)
@@ -68,6 +67,13 @@ export default {
             let newUser = self.allUsers
             newUser.push(row)
             self.setUserData(newUser)
+
+            let newDeleted = self.deletedPersons.filter(
+              eachPerson => {
+                return eachPerson.pk !== row.pk
+              }
+            )
+            self.setDeleted(newDeleted)
           }
         }
       )
