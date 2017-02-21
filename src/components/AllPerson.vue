@@ -73,7 +73,8 @@ export default {
       'getToken',
       'detailURL',
       'manageURL',
-      'deleteURL'
+      'deleteURL',
+      'deletedPersons'
     ])
   },
   filters: {
@@ -124,7 +125,8 @@ export default {
   methods: {
     ...mapMutations([
       'getUserData',
-      'setUserData'
+      'setUserData',
+      'setDeleted'
     ]),
     loadData: function () {
       let self = this
@@ -151,17 +153,9 @@ export default {
         response => {
           console.log(response.data)
           if (response.data.message === 'OK') {
-            let newPerson = self.allUsers.map(
-              eachPerson => {
-                if (eachPerson === self.selectedPerson) {
-                  return null
-                } else {
-                  return eachPerson
-                }
-              }
-            )
-            this.setUserData(newPerson)
-            this.allUsers = newPerson
+            let deleted = self.deletedPersons
+            deleted.push(self.selectedPerson)
+            this.setDeleted(deleted)
             self.selectedPerson = ''
             self.dialogPerson = false
           }

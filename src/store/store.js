@@ -36,13 +36,11 @@ const mutations = {
         exclude: 1
       }
     }).then(response => {
-      console.log(response)
       state.allUserData = response.data
     })
   },
   setUserData (state, data) {
     state.allUserData = data
-    console.log(data)
   },
   login (state, info) {
     axios.post(state.authURL, info).then(response => {
@@ -54,7 +52,6 @@ const mutations = {
   },
   setDeleted (state, data) {
     state.deletedPersons = data
-    console.log(data)
   }
 }
 
