@@ -2,11 +2,11 @@
   <div id="app">
     <el-row>
       <el-col :span="4">
-        <el-menu mode="vertical" default-active="1" class="el-menu-vertical-demo">
+        <el-menu mode="vertical" @select="selectMenu" default-active="1" class="el-menu-vertical-demo">
           <el-menu-item-group title="Group One">
-            <el-menu-item index="1"><span @click="toPersons"><i class="el-icon-document"></i>每个人都在这里</span></el-menu-item>
-            <el-menu-item index="2"><span @click="toLogin"><i class="el-icon-message"></i>获得身份许可</span></el-menu-item>
-            <el-menu-item index="3"><span @click="toDelete"><i class="el-icon-message"></i>我的遗忘之地</span></el-menu-item>
+            <el-menu-item index="1"><i class="el-icon-document"></i>每个人都在这里</el-menu-item>
+            <el-menu-item index="2"><i class="el-icon-message"></i>获得身份许可</el-menu-item>
+            <el-menu-item  index="3"><i class="el-icon-message"></i>我的遗忘之地</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="Group Two">
             <el-menu-item index="4"><span @click="advanced"><i class="el-icon-message"></i>高级功能</el-menu-item>
@@ -24,19 +24,30 @@ export default {
   name: 'app',
   methods: {
     toPersons: function () {
-      console.log('to persons')
-      this.$router.push('persons')
+
     },
     toDelete: function () {
-      console.log('to delete')
-      this.$router.push('delete')
+
     },
     toLogin: function () {
-      console.log('to login')
-      this.$router.push('login')
+
     },
     advanced: function () {
       this.$message.error('别点了，还没写呢')
+    },
+    selectMenu: function (index, indexPath) {
+      // console.log(index)
+      // console.log(index === '3')
+      if (index === '1') {
+        console.log('to persons')
+        this.$router.push('persons')
+      } else if (index === '3') {
+        console.log('to delete')
+        this.$router.push('delete')
+      } else if (index === '2') {
+        console.log('to login')
+        this.$router.push('login')
+      }
     }
   }
 }

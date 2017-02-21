@@ -51,11 +51,11 @@
             <el-button size="small" type="danger" @click="deleteHim">不想要他了</el-button>
           <p>{{selectedPerson.fields.user_agent}}</p>          
         </p>
-        <p>自我介绍:</p>
+        <p style="font-weight: bold">自我介绍:</p>
         <p>{{selectedPerson.fields.self_intro}}</p>
-        <p>第一个问题</p>
+        <p style="font-weight: bold">{{selectedPerson.fields.inclination_one}}</p>
         <p>{{selectedPerson.fields.question_one}}</p>
-        <p>第二个问题</p>
+        <p style="font-weight: bold">{{selectedPerson.fields.inclination_two}}</p>
         <p>{{selectedPerson.fields.question_two}}</p>
       </div>
     </el-dialog>
