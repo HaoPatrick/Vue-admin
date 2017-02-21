@@ -47,6 +47,8 @@ export default {
       } else if (index === '2') {
         console.log('to login')
         this.$router.push('login')
+      } else {
+        this.$message.error('别点了，还没写呢')
       }
     }
   }

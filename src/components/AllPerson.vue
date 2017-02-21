@@ -140,6 +140,7 @@ export default {
           console.log(response.data)
           self.setUserData(response.data.reverse())
           self.loading = false
+          self.$message('成功获得重要数据')
         }
       )
     },
