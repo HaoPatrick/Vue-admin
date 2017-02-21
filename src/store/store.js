@@ -11,7 +11,9 @@ const state = {
   authURL: 'https://joinus.zjuqsc.com/api/auth',
   detailURL: 'https://joinus.zjuqsc.com/api/detail',
   manageURL: 'https://joinus.zjuqsc.com/api/manage',
-  deleteURL: 'https://joinus.zjuqsc.com/api/delete'
+  deleteURL: 'https://joinus.zjuqsc.com/api/delete',
+  recycleURL: 'https://joinus.zjuqsc.com/api/recycle',
+  deletedPersons: []
 }
 
 const mutations = {
@@ -49,6 +51,9 @@ const mutations = {
   },
   setToken (state, token) {
     state.token = token
+  },
+  setDeleted (state, data) {
+    state.deletedPersons = data
   }
 }
 
@@ -65,7 +70,9 @@ const getters = {
   getToken: state => state.token,
   detailURL: state => state.detailURL,
   manageURL: state => state.manageURL,
-  deleteURL: state => state.deleteURL
+  deleteURL: state => state.deleteURL,
+  recycleURL: state => state.recycleURL,
+  deletedPersons: state => state.deletedPersons
 }
 
 export default new Vuex.Store({
