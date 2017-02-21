@@ -8,9 +8,9 @@
     <el-button @click="loadData" size="mini" type="text">再看一眼</el-button>
     </div>
     <el-row :gutter="10" style="overflow: auto; height: 100%;">
-      <el-col v-if="imageOn" :xs="12" :sm="8" :md="8" :lg="6" v-for="person in allUsers">
+      <el-col v-if="imageOn" :xs="12" :sm="12" :md="8" :lg="6" v-for="person in allUsers">
         <el-card style="margin-bottom: 0.8rem;">
-          <img width="100%" v-on:error="handleErrorPhoto($event)" :src="'https://photo.haoxp.xyz:8197/' + person.fields.student_id + '.jpg'">
+          <img width="100%" style="height: 20rem" v-on:error="handleErrorPhoto($event)" :src="'https://photo.haoxp.xyz:8197/' + person.fields.student_id + '.jpg'">
           <div><span class="title-caption">名字是：</span>{{person.fields.name}}</div>
           <div><span class="title-caption">代号：</span>{{person.fields.student_id}}</div>
           <div><span class="title-caption">学：</span>{{person.fields.major}}</div>
