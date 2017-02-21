@@ -35,6 +35,9 @@ export default {
   },
   created: function () {
     let self = this
+    if (self.getToken === '') {
+      self.$router.push('/login')
+    }
     let form = new FormData()
     form.append('cookie', self.getToken)
     axios.get(self.recycleURL, form).then(

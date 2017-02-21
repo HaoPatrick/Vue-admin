@@ -7,7 +7,7 @@ const state = {
   login: false,
   showLoginModal: false,
   allUserData: [],
-  token: '7af0c47082929962643074d0174e1f1947eb0272c06f079304db84a923dfe820',
+  token: '',
   authURL: 'https://joinus.zjuqsc.com/api/auth',
   detailURL: 'https://joinus.zjuqsc.com/api/detail',
   manageURL: 'https://joinus.zjuqsc.com/api/manage',
