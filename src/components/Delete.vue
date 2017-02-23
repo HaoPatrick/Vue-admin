@@ -1,8 +1,9 @@
 <template>
- <el-col :span="19" style="margin-left: 20px; padding-bottom: 6rem;">
+ <el-col :span="19" style=" margin-left: 20px; padding-bottom: 6rem;">
     <h1>{{ msg }}</h1>
+    <div style="height: 100%;overflow: auto">
       <el-table v-if="deletedPersons"  highlight-current-row 
-        fit :data="deletedPersons"
+        fit :data="deletedPersons" 
         >
         <el-table-column sortable prop="fields.name" label="TA的名字">
         </el-table-column>
@@ -16,6 +17,7 @@
           </template>
         </el-table-column>
       </el-table>
+    </div>
  </el-col>
 </template>
 
