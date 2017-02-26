@@ -38,7 +38,7 @@
       <div v-if="selectedPerson">
         <el-row>
           <el-col :span="19">
-            <p>大家好，我叫{{selectedPerson.fields.name}}, 性别{{selectedPerson.fields.gender}}, 手机号是{{selectedPerson.fields.phone_number}}，
+            <p>大家好，我叫{{selectedPerson.fields.name}}, 性别{{selectedPerson.fields.gender}}, 我的浙江大学统一代号是：{{selectedPerson.fields.student_id}} 手机号是{{selectedPerson.fields.phone_number}}，
               现在在{{selectedPerson.fields.major}}读{{selectedPerson.fields.grade}}。 
               填写报名表用了{{selectedPerson.fields.time_spend | getTime}} 我的邮箱是 {{selectedPerson.fields.mail_address}}
               我的Box作品：{{selectedPerson.fields.share_work | filterPhoto}}
@@ -183,7 +183,7 @@ export default {
         row.fields.phone_number.slice(7, 11)
     },
     filterDepart: function (value, row) {
-      return row.fields.inclination_one === value
+      return row.fields.inclination_one === value || row.fields.inclination_two === value
     },
     showDetail: function () {
       this.dialogPerson = !this.dialogPerson
