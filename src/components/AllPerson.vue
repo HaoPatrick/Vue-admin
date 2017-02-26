@@ -41,7 +41,7 @@
             <p>大家好，我叫{{selectedPerson.fields.name}}, 性别{{selectedPerson.fields.gender}}, 我的浙江大学统一代号是：{{selectedPerson.fields.student_id}} 手机号是{{selectedPerson.fields.phone_number}}，
               现在在{{selectedPerson.fields.major}}读{{selectedPerson.fields.grade}}。 
               填写报名表用了{{selectedPerson.fields.time_spend | getTime}} 我的邮箱是 {{selectedPerson.fields.mail_address}}
-              我的Box作品：{{selectedPerson.fields.share_work | filterPhoto}}
+              我的Box作品：<a :href="'https://box.zjuqsc.com/-' + selectedPerson.fields.share_work">{{selectedPerson.fields.share_work | filterPhoto}}</a>
             </p>
             <p>
               <el-tag type="primary">{{selectedPerson.fields.inclination_one}}</el-tag>
