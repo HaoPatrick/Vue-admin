@@ -105,7 +105,8 @@ export default {
       departFilter: [
         {text: '推广与策划中心', value: '推广与策划中心'},
         {text: '技术研发中心', value: '技术研发中心'},
-        {text: '视频团队', value: '视频团队'},
+        {text: '视频团队(主持人)', value: '视频团队(主持人)'},
+        {text: '视频团队(拍摄与制作)', value: '视频团队(拍摄与制作)'},
         {text: '人力资源部门', value: '人力资源部门'},
         {text: '设计与视觉中心', value: '设计与视觉中心'},
         {text: '新闻与资讯中心', value: '新闻与资讯中心'},

@@ -7,10 +7,11 @@
             <el-menu-item index="1"><i class="el-icon-document"></i>每个人都在这里</el-menu-item>
             <el-menu-item index="2"><i class="el-icon-message"></i>获得身份许可</el-menu-item>
             <el-menu-item  index="3"><i class="el-icon-message"></i>我的遗忘之地</el-menu-item>
+            <el-menu-item  index="4"><i class="el-icon-message"></i>记录在册</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="Group Two">
-            <el-menu-item index="4"><span @click="advanced"><i class="el-icon-message"></i>高级功能</el-menu-item>
-            <el-menu-item index="5"><span @click="advanced"><i class="el-icon-message"></i>设置</el-menu-item>
+            <el-menu-item index="5"><span @click="advanced"><i class="el-icon-message"></i>高级功能</span></el-menu-item>
+            <el-menu-item index="6"><span @click="advanced"><i class="el-icon-message"></i>设置</span></el-menu-item>
           </el-menu-item-group>
         </el-menu>
       </el-col>
@@ -47,6 +48,9 @@ export default {
       } else if (index === '2') {
         console.log('to login')
         this.$router.push('login')
+      } else if (index === '4') {
+        console.log('print')
+        this.$router.push('print')
       } else {
         this.$message.error('别点了，还没写呢')
       }

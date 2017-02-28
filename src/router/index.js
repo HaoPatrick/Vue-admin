@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import AllPerson from 'components/AllPerson'
 import Login from 'components/Login'
 import Delete from 'components/Delete'
+import Print from 'components/Print'
 
 Vue.use(Router)
 
@@ -16,6 +17,7 @@ export default new Router({
     },
     { path: '/persons', name: 'AllPerson', component: AllPerson },
     { path: '/login', name: 'Login', component: Login },
-    { path: '/delete', name: 'Delete', component: Delete }
+    { path: '/delete', name: 'Delete', component: Delete },
+    { path: '/print', name: 'Print', component: Print }
   ]
 })
